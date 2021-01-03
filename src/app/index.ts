@@ -1,0 +1,103 @@
+import Generator from "yeoman-generator";
+import yosay from "yosay";
+import chalk from "chalk";
+import { GeneratorModule } from "./modules/generator.module";
+import { FPModule } from "./modules/fp/fp.module";
+import { LintingModule } from "./modules/linting/linting.module";
+import { VSCodeModule } from "./modules/vscode/vscode.module";
+import { TestModule } from "./modules/test/test.module";
+
+/**
+ * fp-ts generator implementation.
+ *
+ * @export
+ * @class Gen
+ * @extends {Generator}
+ */
+export default class FPTSGenerator extends Generator {
+    /**
+     * List of all generator modules.
+     *
+     * @private
+     * @type {GeneratorModule[]}
+     * @memberof FPTSGenerator
+     */
+    private modules: GeneratorModule[] = [];
+
+    /**
+     * Will be called on generator initialization.
+     *
+     * @memberof FPTSGenerator
+     */
+    public initializing(): void {
+        this.modules.push(
+            ...[
+                new FPModule(this),
+                new LintingModule(this),
+                new VSCodeModule(this),
+                new TestModule(this),
+            ]
+        );
+    }
+
+    /**
+     * Will be valled on generator prompting.
+     *
+     * @returns {Promise<void>}
+     * @memberof FPTSGenerator
+     */
+    public async prompting(): Promise<void> {
+        const greeting = yosay(
+            `Welcome to the world of ${chalk.red("PURE")} bliss!`
+        );
+        this.log(greeting);
+
+        for (const module of this.modules) await module.prompt();
+    }
+
+    /**
+     * Will be called on generator configuration.
+     *
+     * @memberof FPTSGenerator
+     */
+    public configuring(): void {
+        this.spawnCommand("npm", ["-g", "install", "yarn"]);
+        this.spawnCommand("yarn", ["init", "-y"]);
+
+        this.fs.extendJSON(this.destinationPath("package.json"), {
+            main: "./dist/index.js",
+            scripts: {
+                start: "node ./dist/index.js",
+                build: "tsc",
+                "build:start": "yarn build && yarn start",
+            },
+        });
+
+        for (const module of this.modules) module.configure();
+    }
+
+    /**
+     * Will be called on generator writing.
+     *
+     * @memberof FPTSGenerator
+     */
+    public writing(): void {
+        for (const module of this.modules) module.write();
+    }
+
+    /**
+     * Will be called on generator install.
+     *
+     * @memberof FPTSGenerator
+     */
+    public install(): void {
+        for (const module of this.modules) module.install();
+    }
+
+    /**
+     * Will be called on generator end.
+     *
+     * @memberof FPTSGenerator
+     */
+    public end(): void {}
+}
