@@ -1,4 +1,5 @@
 import { ConfirmQuestion, CheckboxQuestion } from "inquirer/index";
+import _ from "lodash";
 import * as choices from "./choices";
 import { GeneratorModule } from "../generator.module";
 import { Conformation, Dependencies } from "../../types";
@@ -98,12 +99,20 @@ export class FPModule extends GeneratorModule<Props> {
      * @memberof FPModule
      */
     public install(): void {
-        const dev = dependencies.dev;
+        const dev: string[] = [];
+        dev.push(...dependencies.dev);
+
         this.generator.yarnInstall(dev, { dev: true });
 
-        const prod = dependencies.prod;
-        prod.push(...this.props.libraries.value);
-        prod.push(...this.props.bindings.value);
+        const prod: string[] = [];
+        prod.push(...dependencies.prod);
+
+        if (!_.isEmpty(this.props.libraries.value))
+            prod.push(...this.props.libraries.value);
+
+        if (!_.isEmpty(this.props.bindings.value))
+            prod.push(...this.props.bindings.value);
+
         this.generator.yarnInstall(prod);
     }
 

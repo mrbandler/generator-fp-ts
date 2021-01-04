@@ -251,7 +251,7 @@ export class LintingModule extends GeneratorModule<Props> {
                     type: "list",
                     name: "arrowParens",
                     message:
-                        "Prettier configuration > Arrow Function Parentheses:",
+                        "Prettier configuration => Arrow Function Parentheses:",
                     choices: [
                         {
                             name:
