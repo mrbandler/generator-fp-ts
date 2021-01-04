@@ -33,7 +33,7 @@ jobs:
               uses: actions/upload-artifact@v2
               with:
                   name: generator-fp-ts-artifacts
-                  path: bin
+                  path: generators
 
     publish:
         needs: build
@@ -46,7 +46,7 @@ jobs:
               uses: actions/download-artifact@v2
               with:
                   name: generator-fp-ts-artifacts
-                  path: bin
+                  path: generators
 
             - name: Setup node environment
               uses: actions/setup-node@v2
