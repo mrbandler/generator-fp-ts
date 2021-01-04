@@ -12,13 +12,7 @@
 ## 1. Installation
 
 ```bash
-$ npm install generator-fp-ts
-```
-
-OR
-
-```bash
-$ yarn add generator-fp-ts
+$ npm -g install generator-fp-ts
 ```
 
 ## 2. Usage
