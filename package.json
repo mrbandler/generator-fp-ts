@@ -1,6 +1,6 @@
 {
     "name": "generator-fp-ts",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "Yeoman generator for fp-ts project scaffolding.",
     "homepage": "https://github.com/mrbandler/generator-fp-ts",
     "repository": "git@github.com:mrbandler/generator-fp-ts.git",
