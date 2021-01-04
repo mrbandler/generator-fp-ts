@@ -99,5 +99,7 @@ export default class FPTSGenerator extends Generator {
      *
      * @memberof FPTSGenerator
      */
-    public end(): void {}
+    public end(): void {
+        // Nothing to end here.
+    }
 }

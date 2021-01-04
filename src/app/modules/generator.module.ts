@@ -8,7 +8,7 @@ import Generator from "yeoman-generator";
  * @class GeneratorModule
  * @template P Type of the generator module properties.
  */
-export abstract class GeneratorModule<P = Object> {
+export abstract class GeneratorModule<P = unknown> {
     /**
      * Generator the module belongs to.
      *

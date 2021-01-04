@@ -17,9 +17,13 @@
         "yeoman-generator"
     ],
     "devDependencies": {
+        "@commitlint/cli": "^11.0.0",
+        "@commitlint/config-conventional": "^11.0.0",
         "@types/jest": "^26.0.19",
         "@types/lodash": "^4.14.167",
+        "@types/yeoman-assert": "^3.1.1",
         "@types/yeoman-generator": "^4.11.3",
+        "@types/yeoman-test": "^2.0.5",
         "@typescript-eslint/eslint-plugin": "^4.11.1",
         "@typescript-eslint/parser": "^4.11.1",
         "eslint": "^7.17.0",
@@ -46,9 +50,6 @@
         "yeoman-generator": "^2.0.1",
         "yosay": "^2.0.1"
     },
-    "jest": {
-        "testEnvironment": "node"
-    },
     "lint-staged": {
         "*.ts": [
             "eslint --fix",
@@ -61,13 +62,13 @@
     },
     "husky": {
         "hooks": {
-            "pre-commit": "lint-staged"
+            "pre-commit": "lint-staged",
+            "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
         }
     },
     "scripts": {
         "build": "tsc",
-        "pretest": "eslint .",
-        "test": "jest"
+        "test": "tsc && jest"
     },
     "repository": "git@github.com:mrbandler/generator-fp-ts.git",
     "license": "MIT"
