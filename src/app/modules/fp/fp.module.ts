@@ -98,22 +98,14 @@ export class FPModule extends GeneratorModule<Props> {
      *
      * @memberof FPModule
      */
-    public install(): void {
-        const dev: string[] = [];
-        dev.push(...dependencies.dev);
-
-        this.generator.yarnInstall(dev, { dev: true });
-
-        const prod: string[] = [];
-        prod.push(...dependencies.prod);
-
+    public install(): Dependencies {
         if (!_.isEmpty(this.props.libraries.value))
-            prod.push(...this.props.libraries.value);
+            dependencies.prod.push(...this.props.libraries.value);
 
         if (!_.isEmpty(this.props.bindings.value))
-            prod.push(...this.props.bindings.value);
+            dependencies.prod.push(...this.props.bindings.value);
 
-        this.generator.yarnInstall(prod);
+        return dependencies;
     }
 
     /**

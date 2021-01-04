@@ -95,7 +95,23 @@ export default class FPTSGenerator extends Generator {
      * @memberof FPTSGenerator
      */
     public install(): void {
-        for (const module of this.modules) module.install();
+        const deps = this.modules
+            .map(m => m.install())
+            .reduce(
+                (result, current) => {
+                    result.dev.push(...current.dev);
+                    result.prod.push(...current.prod);
+
+                    return result;
+                },
+                {
+                    dev: [],
+                    prod: [],
+                }
+            );
+
+        this.yarnInstall(deps.prod);
+        this.yarnInstall(deps.dev, { dev: true });
     }
 
     /**

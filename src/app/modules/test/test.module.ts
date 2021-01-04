@@ -110,9 +110,14 @@ export class TestModule extends GeneratorModule<Props> {
      *
      * @memberof TestModule
      */
-    public install(): void {
-        if (!this.props.enabled) return;
+    public install(): Dependencies {
+        if (!this.props.enabled) {
+            return {
+                dev: [],
+                prod: [],
+            };
+        }
 
-        this.generator.yarnInstall(dependencies.dev, { dev: true });
+        return dependencies;
     }
 }

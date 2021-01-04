@@ -1,4 +1,5 @@
 import Generator from "yeoman-generator";
+import { Dependencies } from "../types";
 
 /**
  * Abstract generator module.
@@ -90,5 +91,5 @@ export abstract class GeneratorModule<P = unknown> {
      * @abstract
      * @memberof GeneratorModule
      */
-    public abstract install(): void;
+    public abstract install(): Dependencies;
 }

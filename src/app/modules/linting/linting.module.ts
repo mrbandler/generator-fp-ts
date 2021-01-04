@@ -189,20 +189,25 @@ export class LintingModule extends GeneratorModule<Props> {
      *
      * @memberof LintingModule
      */
-    public install(): void {
-        if (!this.props.enabled) return;
-
-        const dev = dependencies.dev;
+    public install(): Dependencies {
+        if (!this.props.enabled) {
+            return {
+                dev: [],
+                prod: [],
+            };
+        }
 
         if (this.props.hooks) {
-            dev.push(...["husky", "lint-staged"]);
+            dependencies.dev.push(...["husky", "lint-staged"]);
         }
 
         if (this.props.commitlint) {
-            dev.push(...["@commitlint/cli", "@commitlint/config-conventional"]);
+            dependencies.dev.push(
+                ...["@commitlint/cli", "@commitlint/config-conventional"]
+            );
         }
 
-        this.generator.yarnInstall(dev, { dev: true });
+        return dependencies;
     }
 
     /**

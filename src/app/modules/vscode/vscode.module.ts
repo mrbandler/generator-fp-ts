@@ -1,6 +1,6 @@
 import { ConfirmQuestion } from "inquirer";
 import { GeneratorModule } from "../generator.module";
-import { Conformation } from "../../types";
+import { Conformation, Dependencies } from "../../types";
 
 /**
  * Module props.
@@ -79,7 +79,10 @@ export class VSCodeModule extends GeneratorModule<Props> {
      *
      * @memberof VSCodeModule
      */
-    public install(): void {
-        // Nothing to install here.
+    public install(): Dependencies {
+        return {
+            dev: [],
+            prod: [],
+        };
     }
 }

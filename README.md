@@ -1,36 +1,58 @@
-# generator-fp-ts [![NPM version][npm-image]][npm-url] [![Build Status][travis-image]][travis-url] [![Dependency Status][daviddm-image]][daviddm-url]
-> Yeoman generator for fp-ts projects.
+# Yeoman generator for [fp-ts](https://github.com/gcanti/fp-ts) projects
 
-## Installation
+[![npm version](https://badge.fury.io/js/generator-fp-ts.svg)](https://badge.fury.io/js/generator-fp-ts) [![Actions Status](https://github.com/mrbandler/generator-fp-ts/workflows/build/badge.svg)](https://github.com/mrbandler/generator-fp-ts/actions) [![GitHub License](https://img.shields.io/github/license/mrbandler/generator-fp-ts)](https://github.com/mrbandler/generator-fp-ts/blob/master/LICENSE)
 
-First, install [Yeoman](http://yeoman.io) and generator-fp-ts using [npm](https://www.npmjs.com/) (we assume you have pre-installed [node.js](https://nodejs.org/)).
+## Table of Content
+
+1. [Installation](#1-installation) 💻
+2. [Usage](#2-usage) ⌨️
+3. [Bugs and Features](#4-bugs-and-features) 🐞💡
+4. [License](#5-license) 📃
+
+## 1. Installation
 
 ```bash
-npm install -g yo
-npm install -g generator-fp-ts
+$ npm install generator-fp-ts
 ```
 
-Then generate your new project:
+OR
 
 ```bash
-yo fp-ts
+$ yarn add generator-fp-ts
 ```
 
-## Getting To Know Yeoman
+## 2. Usage
 
- * Yeoman has a heart of gold.
- * Yeoman is a person with feelings and opinions, but is very easy to work with.
- * Yeoman can be too opinionated at times but is easily convinced not to be.
- * Feel free to [learn more about Yeoman](http://yeoman.io/).
+```bash
+$ yo fp-ts
+```
 
-## License
+## 3. Bugs and Features
 
-MIT © [mrbandler](https://mrbandler.dev)
+If you got an idea for an additional feature 💡 or encounter any bugs 🐞, please open a issue.
 
+---
 
-[npm-image]: https://badge.fury.io/js/generator-fp-ts.svg
-[npm-url]: https://npmjs.org/package/generator-fp-ts
-[travis-image]: https://travis-ci.com/mrbandler/generator-fp-ts.svg?branch=master
-[travis-url]: https://travis-ci.com/mrbandler/generator-fp-ts
-[daviddm-image]: https://david-dm.org/mrbandler/generator-fp-ts.svg?theme=shields.io
-[daviddm-url]: https://david-dm.org/mrbandler/generator-fp-ts
+## 4. License
+
+MIT License
+
+Copyright (c) 2021 mrbandler
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
