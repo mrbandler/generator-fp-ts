@@ -52,7 +52,7 @@ export class TestModule extends GeneratorModule<Props> {
      * @memberof TestModule
      */
     public async prompt(): Promise<void> {
-        var question: ConfirmQuestion = {
+        const question: ConfirmQuestion = {
             type: "confirm",
             name: "confirmed",
             message:
@@ -60,7 +60,7 @@ export class TestModule extends GeneratorModule<Props> {
             default: true,
         };
 
-        var answer = await this.generator.prompt<Conformation>(question);
+        const answer = await this.generator.prompt<Conformation>(question);
         this.props.enabled = answer.confirmed;
     }
 
@@ -110,9 +110,14 @@ export class TestModule extends GeneratorModule<Props> {
      *
      * @memberof TestModule
      */
-    public install(): void {
-        if (!this.props.enabled) return;
+    public install(): Dependencies {
+        if (!this.props.enabled) {
+            return {
+                dev: [],
+                prod: [],
+            };
+        }
 
-        this.generator.yarnInstall(dependencies.dev, { dev: true });
+        return dependencies;
     }
 }

@@ -72,14 +72,14 @@ export class LintingModule extends GeneratorModule<Props> {
      * @memberof LintingModule
      */
     public async prompt(): Promise<void> {
-        var question: ConfirmQuestion = {
+        const question: ConfirmQuestion = {
             type: "confirm",
             name: "linting",
             message:
                 "Would you like to add linting and pretty-printing capabilities via ESLint, prettier and commitlint?",
         };
 
-        var answer = await this.generator.prompt(question);
+        const answer = await this.generator.prompt(question);
         if (answer.linting) {
             this.props.enabled = true;
             this.props.prettier = await this.promptPrettierProps();
@@ -103,7 +103,7 @@ export class LintingModule extends GeneratorModule<Props> {
         this.generator.fs.copy(this.generator.templatePath(".*"), this.root);
 
         // Generate and write the editor configuration based on prettier props.
-        var editorConfig = this.editorConfig();
+        const editorConfig = this.editorConfig();
         this.generator.fs.write(
             this.generator.destinationPath(".editorconfig"),
             editorConfig
@@ -180,27 +180,34 @@ export class LintingModule extends GeneratorModule<Props> {
      *
      * @memberof LintingModule
      */
-    public write(): void {}
+    public write(): void {
+        // Nothing to write here.
+    }
 
     /**
      * Will be called in the install phase.
      *
      * @memberof LintingModule
      */
-    public install(): void {
-        if (!this.props.enabled) return;
-
-        var dev = dependencies.dev;
+    public install(): Dependencies {
+        if (!this.props.enabled) {
+            return {
+                dev: [],
+                prod: [],
+            };
+        }
 
         if (this.props.hooks) {
-            dev.push(...["husky", "lint-staged"]);
+            dependencies.dev.push(...["husky", "lint-staged"]);
         }
 
         if (this.props.commitlint) {
-            dev.push(...["@commitlint/cli", "@commitlint/config-conventional"]);
+            dependencies.dev.push(
+                ...["@commitlint/cli", "@commitlint/config-conventional"]
+            );
         }
 
-        this.generator.yarnInstall(dev, { dev: true });
+        return dependencies;
     }
 
     /**
@@ -211,14 +218,14 @@ export class LintingModule extends GeneratorModule<Props> {
      * @memberof LintingModule
      */
     private async promptPrettierProps(): Promise<PrettierProps> {
-        var question: ConfirmQuestion = {
+        const question: ConfirmQuestion = {
             type: "confirm",
             name: "prettier",
             message:
                 "Would you like to customize the default prettier configuration?",
         };
 
-        var answer = await this.generator.prompt(question);
+        const answer = await this.generator.prompt(question);
         if (answer.prettier) {
             return await this.generator.prompt<PrettierProps>([
                 {
@@ -249,7 +256,7 @@ export class LintingModule extends GeneratorModule<Props> {
                     type: "list",
                     name: "arrowParens",
                     message:
-                        "Prettier configuration > Arrow Function Parentheses:",
+                        "Prettier configuration => Arrow Function Parentheses:",
                     choices: [
                         {
                             name:
@@ -288,9 +295,9 @@ export class LintingModule extends GeneratorModule<Props> {
             default: true,
         };
 
-        var answer = await this.generator.prompt<Conformation>(question);
+        const answer = await this.generator.prompt<Conformation>(question);
         if (answer.confirmed) {
-            var bindings: CheckboxQuestion = {
+            const bindings: CheckboxQuestion = {
                 type: "checkbox",
                 name: "rulesets",
                 message: "Select the ruleset you want to add?",
@@ -319,7 +326,7 @@ export class LintingModule extends GeneratorModule<Props> {
             default: true,
         };
 
-        var answer = await this.generator.prompt<Conformation>(question);
+        const answer = await this.generator.prompt<Conformation>(question);
         return answer.confirmed;
     }
 
@@ -339,7 +346,7 @@ export class LintingModule extends GeneratorModule<Props> {
             default: true,
         };
 
-        var answer = await this.generator.prompt<Conformation>(question);
+        const answer = await this.generator.prompt<Conformation>(question);
         return answer.confirmed;
     }
 
@@ -351,7 +358,7 @@ export class LintingModule extends GeneratorModule<Props> {
      * @memberof LintingModule
      */
     private editorConfig(): string {
-        var editorConfig = [];
+        const editorConfig = [];
         editorConfig.push("[*]");
         editorConfig.push(
             `indent_style = ${this.props.prettier.useTabs ? "tab" : "space"}`

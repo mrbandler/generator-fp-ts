@@ -1,4 +1,5 @@
 import { ConfirmQuestion, CheckboxQuestion } from "inquirer/index";
+import _ from "lodash";
 import * as choices from "./choices";
 import { GeneratorModule } from "../generator.module";
 import { Conformation, Dependencies } from "../../types";
@@ -71,7 +72,9 @@ export class FPModule extends GeneratorModule<Props> {
      *
      * @memberof FPModule
      */
-    public configure(): void {}
+    public configure(): void {
+        // Nothing to configure.
+    }
 
     /**
      * Will be called in the write phase.
@@ -95,14 +98,14 @@ export class FPModule extends GeneratorModule<Props> {
      *
      * @memberof FPModule
      */
-    public install(): void {
-        var dev = dependencies.dev;
-        this.generator.yarnInstall(dev, { dev: true });
+    public install(): Dependencies {
+        if (!_.isEmpty(this.props.libraries.value))
+            dependencies.prod.push(...this.props.libraries.value);
 
-        var prod = dependencies.prod;
-        prod.push(...this.props.libraries.value);
-        prod.push(...this.props.bindings.value);
-        this.generator.yarnInstall(prod);
+        if (!_.isEmpty(this.props.bindings.value))
+            dependencies.prod.push(...this.props.bindings.value);
+
+        return dependencies;
     }
 
     /**
@@ -121,9 +124,9 @@ export class FPModule extends GeneratorModule<Props> {
             default: true,
         };
 
-        var answer = await this.generator.prompt<Conformation>(question);
+        const answer = await this.generator.prompt<Conformation>(question);
         if (answer.confirmed) {
-            var libraries: CheckboxQuestion = {
+            const libraries: CheckboxQuestion = {
                 type: "checkbox",
                 name: "value",
                 message: "Select fp-ts libraries to add?",
@@ -152,9 +155,9 @@ export class FPModule extends GeneratorModule<Props> {
             default: false,
         };
 
-        var answer = await this.generator.prompt<Conformation>(question);
+        const answer = await this.generator.prompt<Conformation>(question);
         if (answer.confirmed) {
-            var bindings: CheckboxQuestion = {
+            const bindings: CheckboxQuestion = {
                 type: "checkbox",
                 name: "value",
                 message: "Select fp-ts bindings to add?",

@@ -37,7 +37,7 @@ export interface ESLintProps {
  * @interface ESLintRules
  */
 export interface ESLintRules {
-    [key: string]: any[];
+    [key: string]: unknown[];
 }
 
 /**

@@ -1,6 +1,6 @@
 import { ConfirmQuestion } from "inquirer";
 import { GeneratorModule } from "../generator.module";
-import { Conformation } from "../../types";
+import { Conformation, Dependencies } from "../../types";
 
 /**
  * Module props.
@@ -39,14 +39,14 @@ export class VSCodeModule extends GeneratorModule<Props> {
      * @memberof VSCodeModule
      */
     public async prompt(): Promise<void> {
-        var question: ConfirmQuestion = {
+        const question: ConfirmQuestion = {
             type: "confirm",
             name: "confirmed",
             message: "Would you like to add pre-configured VS Code settings?",
             default: true,
         };
 
-        var answer = await this.generator.prompt<Conformation>(question);
+        const answer = await this.generator.prompt<Conformation>(question);
         this.props.enabled = answer.confirmed;
     }
 
@@ -56,7 +56,9 @@ export class VSCodeModule extends GeneratorModule<Props> {
      * @returns {void}
      * @memberof VSCodeModule
      */
-    public configure(): void {}
+    public configure(): void {
+        // Nothing to configure here.
+    }
 
     /**
      * Will be called in the writing phase.
@@ -77,5 +79,10 @@ export class VSCodeModule extends GeneratorModule<Props> {
      *
      * @memberof VSCodeModule
      */
-    public install(): void {}
+    public install(): Dependencies {
+        return {
+            dev: [],
+            prod: [],
+        };
+    }
 }

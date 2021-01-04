@@ -1,3 +1,4 @@
+import _ from "lodash";
 import Generator from "yeoman-generator";
 import yosay from "yosay";
 import chalk from "chalk";
@@ -60,11 +61,14 @@ export default class FPTSGenerator extends Generator {
      *
      * @memberof FPTSGenerator
      */
-    public configuring(): void {
-        this.spawnCommand("npm", ["-g", "install", "yarn"]);
-        this.spawnCommand("yarn", ["init", "-y"]);
+    public async configuring(): Promise<void> {
+        this.fs.copy(
+            this.templatePath("package.json"),
+            this.destinationPath("package.json")
+        );
 
         this.fs.extendJSON(this.destinationPath("package.json"), {
+            name: `${_.last(this.destinationRoot().split("/"))}`,
             main: "./dist/index.js",
             scripts: {
                 start: "node ./dist/index.js",
@@ -91,7 +95,23 @@ export default class FPTSGenerator extends Generator {
      * @memberof FPTSGenerator
      */
     public install(): void {
-        for (const module of this.modules) module.install();
+        const deps = this.modules
+            .map(m => m.install())
+            .reduce(
+                (result, current) => {
+                    result.dev.push(...current.dev);
+                    result.prod.push(...current.prod);
+
+                    return result;
+                },
+                {
+                    dev: [],
+                    prod: [],
+                }
+            );
+
+        this.yarnInstall(deps.prod);
+        this.yarnInstall(deps.dev, { dev: true });
     }
 
     /**
@@ -99,5 +119,7 @@ export default class FPTSGenerator extends Generator {
      *
      * @memberof FPTSGenerator
      */
-    public end(): void {}
+    public end(): void {
+        // Nothing to end here.
+    }
 }
