@@ -27,6 +27,8 @@ $ yarn add generator-fp-ts
 $ yo fp-ts
 ```
 
+![generator-fp-ts](https://github.com/mrbandler/generator-fp-ts/raw/master/generator-fp-ts.gif)
+
 ## 3. Bugs and Features
 
 If you got an idea for an additional feature 💡 or encounter any bugs 🐞, please open a issue.
