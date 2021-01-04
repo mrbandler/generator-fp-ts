@@ -1,6 +1,8 @@
-# Yeoman generator for [fp-ts](https://github.com/gcanti/fp-ts) projects
+# YO, [fp-ts](https://github.com/gcanti/fp-ts)!
 
 [![npm version](https://badge.fury.io/js/generator-fp-ts.svg)](https://badge.fury.io/js/generator-fp-ts) [![Actions Status](https://github.com/mrbandler/generator-fp-ts/workflows/build/badge.svg)](https://github.com/mrbandler/generator-fp-ts/actions) [![GitHub License](https://img.shields.io/github/license/mrbandler/generator-fp-ts)](https://github.com/mrbandler/generator-fp-ts/blob/master/LICENSE)
+
+**Yeoman generator for easy [fp-ts](https://github.com/gcanti/fp-ts) project scaffolding.**
 
 ## Table of Content
 
